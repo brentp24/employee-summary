@@ -14,7 +14,7 @@ function questionairre() {
         {
             type: "input",
             message: "What is the employee's name?",
-            name: "employeeName"
+            name: "name"
         },
         {
             type: "email",
@@ -22,9 +22,9 @@ function questionairre() {
             name: "email"
         },
         {
-            type: "uniqueID",
+            type: "id",
             message: "What is their unique ID?",
-            name: "uniqueID"
+            name: "id"
         },
         {
             type: "list",
@@ -50,7 +50,7 @@ function questionairre() {
             },
             type: "input",
             message: "What is their GitHub?",
-            name: "gitHub"
+            name: "github"
         },
         {
             when: function (response) {
@@ -63,24 +63,20 @@ function questionairre() {
 
     ], function (response) { })
         .then(function (response) {
-
-            console.log(response)
         switch(response.role) {
             case "Intern":
-                const intern = new Intern(response.employeeName, response.uniqueID, response.email, response.school)
+                const intern = new Intern(response.name, response.id, response.email, response.school)
                 console.log("intern: " + intern.school);
             case "Engineer":
-            const engineer = new Engineer(response.employeeName, response.uniqueID, response.email, response.gitHub)
-            console.log("engineer: " + engineer.gitHub);
+            const engineer = new Engineer(response.name, response.id, response.email, response.github)
+            console.log("engineer: " + engineer.github);
             case "Manager":
-                const manager = new Manager(response.employeeName, response.uniqueID, response.email, response.officeNumber)
+                const manager = new Manager(response.name, response.id, response.email, response.officeNumber)
                 console.log("manager: " + manager.officeNumber);
         }
         askAgain();
         });
 }
-
-
         function askAgain() {
             inquirer
                 .prompt([
@@ -100,6 +96,8 @@ function questionairre() {
 
                 });
         }
+
+
 
 
 questionairre();
