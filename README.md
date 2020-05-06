@@ -24,7 +24,7 @@ How do you deliver this? Here are some guidelines:
 ![Employee Summary 1](./Assets/10-OOP-homework-demo-1.png)
 ![Employee Summary 2](./Assets/10-OOP-homework-demo-2.png)
 
-In the `Develop` folder, there is a `package.json`, so make sure to `npm install`.
+In the `Develop` folder, there is a `package.json`, so make sure to `npm install`.   XXX
 
 The dependencies are, [jest](https://jestjs.io/) for running the provided tests, and [inquirer](https://www.npmjs.com/package/inquirer) for collecting input from the user.
 
