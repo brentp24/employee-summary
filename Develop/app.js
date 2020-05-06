@@ -9,112 +9,106 @@ const OUTPUT_DIR = path.resolve(__dirname, "output");
 const outputPath = path.join(OUTPUT_DIR, "team.html");
 const render = require("./lib/htmlRenderer");
 
-
 function questionairre() {
-    inquirer
-        .prompt([
-            {
-                type: "input",
-                message: "What is the employee's name?",
-                name: "employeeName"
+    inquirer.prompt([
+        {
+            type: "input",
+            message: "What is the employee's name?",
+            name: "employeeName"
+        },
+        {
+            type: "email",
+            message: "What is their email?",
+            name: "email"
+        },
+        {
+            type: "uniqueID",
+            message: "What is their unique ID?",
+            name: "uniqueID"
+        },
+        {
+            type: "list",
+            message: "What is their role?",
+            name: "role",
+            choices: [
+                "Intern",
+                "Engineer",
+                "Manager",
+            ]
+        },
+        {
+            when: function (response) {
+                return (response.role === "Intern");
             },
-            {
-                type: "email",
-                message: "What is their email?",
-                name: "email"
+            type: "input",
+            message: "What school do they attend?",
+            name: "school"
+        },
+        {
+            when: function (response) {
+                return (response.role === "Engineer");
             },
-            {
-                type: "uniqueID",
-                message: "What is their unique ID?",
-                name: "uniqueID"
+            type: "input",
+            message: "What is their GitHub?",
+            name: "gitHub"
+        },
+        {
+            when: function (response) {
+                return (response.role === "Manager");
             },
-            {
-                type: "list",
-                message: "What is their role?",
-                name: "role",
-                choices: [
-                    "Intern",
-                    "Engineer",
-                    "Manager",
-                ]
-            },
-        ])
+            type: "input",
+            message: "What is their office number?",
+            name: "officeNumber"
+        },
 
+    ], function (response) { })
         .then(function (response) {
-            console.log(response);
-            switch (response.role) {
-                //Engineer selected
-                case ("Engineer"):
-                    inquirer
-                        .prompt([
-                            {
-                                type: "input",
-                                message: "What is their GitHub?",
-                                name: "gitHub"
-                            }])
-                        .then(function (response) {
-                            console.log(response);
-                            askAgain();
-                        });
-                    break;
 
-                case ("Intern"):
-                    inquirer
-                        .prompt([
-                            {
-                                type: "input",
-                                message: "What school do they attend?",
-                                name: "school"
-                            }])
-                        .then(function (response) {
-                            console.log(response);
-                            askAgain();
-                        });
-                    break;
-
-                case ("Manager"):
-                    inquirer
-                        .prompt([
-                            {
-                                type: "input",
-                                message: "What is their office number?",
-                                name: "officeNumber"
-                            }])
-                        .then(function (response) {
-                            console.log(response);
-                            askAgain();
-                            
-                        });
-                    break;
-            }
-
+            console.log(response)
+        switch(response.role) {
+            case "Intern":
+                const intern = new Intern(response.employeeName, response.uniqueID, response.email, response.school)
+                console.log("intern: " + intern.school);
+            case "Engineer":
+            const engineer = new Engineer(response.employeeName, response.uniqueID, response.email, response.gitHub)
+            console.log("engineer: " + engineer.gitHub);
+            case "Manager":
+                const manager = new Manager(response.employeeName, response.uniqueID, response.email, response.officeNumber)
+                console.log("manager: " + manager.officeNumber);
+        }
+        askAgain();
         });
-
-
 }
 
-function askAgain(){
-inquirer
-.prompt([
-    {
-        type: "list",
-        message: "Do you have more employees to add?",
-        name: "addMoreEmployees",
-        choices: [
-            "Yes",
-            "No"
-        ]
-    }])
-.then(function (response) {
-if(response.addMoreEmployees === "Yes") {
-        questionairre();
-}
-    
-});
-}
+
+        function askAgain() {
+            inquirer
+                .prompt([
+                    {
+                        type: "list",
+                        message: "Do you have more employees to add?",
+                        name: "addMoreEmployees",
+                        choices: [
+                            "Yes",
+                            "No"
+                        ]
+                    }])
+                .then(function (response) {
+                    if (response.addMoreEmployees === "Yes") {
+                        questionairre();
+                    }
+
+                });
+        }
 
 
 questionairre();
+
+
+
+
+
+
 
 
 
