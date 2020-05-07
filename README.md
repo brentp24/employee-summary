@@ -2,13 +2,13 @@
 
 This app allows a manager to build a team of managers, engineers and interns and displays pertninent info. 
 
-Link to Team Page:  [Team Page](https://brentp24.github.io/employee-summary/output/team.html) 
+Link to Video: [Video](https://drive.google.com/open?id=1MkT0mxaNn5fu2y9M0H9-6FEjwG2cF8uN) 
 
+Link to Team Page: [Team Page](https://brentp24.github.io/employee-summary/output/team.html) 
 
 ![My Team](./Assets/employee-summary.jpg)
 
 
-![Video](./Assets/my-team.mp4) 
 
 
 ### User Story
