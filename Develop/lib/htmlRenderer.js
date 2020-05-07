@@ -1,10 +1,9 @@
 const path = require("path");
 const fs = require("fs");
-const app = require("../app");
 
 const templatesDir = path.resolve(__dirname, "../templates");
 
-const render = employees => {
+const render = employees => { 
   const html = [];
 
   html.push(employees
@@ -19,9 +18,8 @@ const render = employees => {
     .filter(employee => employee.getRole() === "Intern")
     .map(intern => renderIntern(intern))
   );
-
+  
   return renderMain(html.join(""));
-
 };
 
 const renderManager = manager => {
@@ -65,3 +63,4 @@ const replacePlaceholders = (template, placeholder, value) => {
 };
 
 module.exports = render;
+
