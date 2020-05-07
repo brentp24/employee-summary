@@ -1,4 +1,3 @@
-const Employee = require("./lib/Employee"); //added this? 
 const Manager = require("./lib/Manager");
 const Engineer = require("./lib/Engineer");
 const Intern = require("./lib/Intern");
@@ -63,44 +62,55 @@ function questionairre() {
 
     ], function (response) { })
         .then(function (response) {
-        switch(response.role) {
-            case "Intern":
-                const intern = new Intern(response.name, response.id, response.email, response.school)
-                console.log("intern: " + intern.school);
-            case "Engineer":
-            const engineer = new Engineer(response.name, response.id, response.email, response.github)
-            console.log("engineer: " + engineer.github);
-            case "Manager":
-                const manager = new Manager(response.name, response.id, response.email, response.officeNumber)
-                console.log("manager: " + manager.officeNumber);
-        }
-        askAgain();
+            switch (response.role) {
+                case "Intern":
+                    const intern = new Intern(response.name, response.id, response.email, response.school)
+                    break
+                case "Engineer":
+                    const engineer = new Engineer(response.name, response.id, response.email, response.github)
+                    break
+                case "Manager":
+                    const manager = new Manager(response.name, response.id, response.email, response.officeNumber)
+                    break
+            }
+            askAgain();
+            render;
         });
 }
-        function askAgain() {
-            inquirer
-                .prompt([
-                    {
-                        type: "list",
-                        message: "Do you have more employees to add?",
-                        name: "addMoreEmployees",
-                        choices: [
-                            "Yes",
-                            "No"
-                        ]
-                    }])
-                .then(function (response) {
-                    if (response.addMoreEmployees === "Yes") {
-                        questionairre();
+function askAgain() {
+    inquirer
+        .prompt([
+            {
+                type: "list",
+                message: "Do you have more employees to add?",
+                name: "addMoreEmployees",
+                choices: [
+                    "Yes",
+                    "No"
+                ]
+            }])
+        .then(function (response) {
+            if (response.addMoreEmployees === "Yes") {
+                questionairre();
+
+            } else {
+
+                fs.writeFile(outputPath, render, function (err) {
+                    if (err) {
+                        return console.log(err);
                     }
 
+                    console.log("Success!");
+
                 });
-        }
 
+            }
 
-
+        });
+}
 
 questionairre();
+
 
 
 

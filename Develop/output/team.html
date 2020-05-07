@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+
+employees => {
+  const html = [];
+
+  html.push(employees
+    .filter(employee => employee.getRole() === "Manager")
+    .map(manager => renderManager(manager))
+  );
+  html.push(employees
+    .filter(employee => employee.getRole() === "Engineer")
+    .map(engineer => renderEngineer(engineer))
+  );
+  html.push(employees
+    .filter(employee => employee.getRole() === "Intern")
+    .map(intern => renderIntern(intern))
+  );
+
+  return renderMain(html.join(""));
+
+}
+
+</body>
+</html>
